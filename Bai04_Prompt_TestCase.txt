@@ -1,0 +1,64 @@
+===== BÀI TẬP 04: SINH TEST CASE VÀ DỮ LIỆU KIỂM THỬ TỰ ĐỘNG =====
+===== FILE 01: PROMPT =====
+
+======================================================================
+PROMPT 1: Yêu cầu phân tích và sinh Test Case
+======================================================================
+"Bạn hãy đóng vai một Senior QA Engineer với 8 năm kinh nghiệm trong lĩnh vực kiểm thử API ngân hàng số.
+
+Tôi có API Đăng ký thông tin eKYC với các trường: fullName, phone, email, citizenId. 
+Hãy phân tích và sinh danh sách Test Case chi tiết dưới dạng bảng bao gồm:
+
+1. Positive Test Cases: Các trường hợp dữ liệu hợp lệ
+2. Negative Test Cases: 
+   - Các trường để trống (empty/null)
+   - Sai định dạng (format error)
+   - Trùng lặp dữ liệu (duplicate)
+   - Độ dài không hợp lệ
+3. Boundary Test Cases:
+   - Chuỗi quá ngắn (min-length)
+   - Chuỗi quá dài (max-length)
+   - Ký tự đặc biệt, Unicode
+
+Yêu cầu bảng gồm các cột: ID, Mô tả, Trường, Giá trị nhập, Kỳ vọng (HTTP Status + Message), Loại (Positive/Negative/Boundary)"
+
+======================================================================
+PROMPT 2: Yêu cầu sinh dữ liệu Mock CSV
+======================================================================
+"Hãy sinh 50 dòng dữ liệu khách hàng giả lập (mock data) dưới định dạng CSV với các cột:
+
+id,fullName,phone,email,citizenId
+
+Yêu cầu:
+- Tên tiếng Việt (fullName) phải là tên người Việt Nam thật (họ, tên đệm, tên)
+- phone: Số điện thoại Việt Nam 10 số, đầu số 03/05/07/08/09
+- email: Định dạng email hợp lệ
+- citizenId: Đúng 12 chữ số, theo chuẩn CCCD Việt Nam
+- KHÔNG có header trong file CSV
+- Mỗi dòng là một bản ghi, các trường cách nhau bằng dấu phẩy
+- 50 dòng, không trùng lặp"
+
+======================================================================
+PROMPT 3: Yêu cầu sinh mã JUnit Test
+======================================================================
+"Dựa vào mã nguồn Spring Boot eKYC, hãy viết class JUnit Test sử dụng JUnit 5 + Mockito để kiểm thử luồng Đăng ký tài khoản.
+
+Yêu cầu:
+
+1. Unit Test cho RegistrationServiceImpl:
+   - Test register thành công (201)
+   - Test citizenId đã tồn tại (409 Conflict)
+   - Test phone đã tồn tại (409 Conflict)
+   - Test email đã tồn tại (409 Conflict)
+
+2. Unit Test cho RegistrationController:
+   - Test POST /api/v1/ekyc/register với dữ liệu hợp lệ
+   - Test với dữ liệu không hợp lệ (validation fail)
+
+3. Unit Test cho các Custom Validator:
+   - Test CitizenIdValidator (12 số hợp lệ, có chữ, thiếu số)
+   - Test VietnamesePhoneValidator (đầu số đúng, đầu số sai, thiếu số)
+
+Sử dụng: @SpringBootTest, @WebMvcTest, @MockBean, Mockito.when(), Assertions
+
+Tạo file: RegistrationServiceTest.java, RegistrationControllerTest.java, ValidatorTest.java"
